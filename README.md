@@ -9,6 +9,6 @@
   <img src="./Angular-Essential-Training-Certificate-of-Completion-2022.PNG" alt="Andrew Tran - Angular Essentials LinkedIn Course Certification of Completion"/>
 </div>
 
--Link to "Angular Essential Training (2022)" LinkedIn Learning Course: [here](https://www.linkedin.com/learning/angular-essential-training-2/why-use-angular?autoplay=true&u=57888345)
+-Link to "Angular Essential Training (2019)" LinkedIn Learning Course: [here](https://www.linkedin.com/learning/angular-essential-training-2/why-use-angular?autoplay=true&u=57888345)
 
--Link to React.js Documentation: [here](https://angular.io/)
+-Link to Angular Documentation: [here](https://angular.io/)
