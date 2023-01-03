@@ -13,8 +13,8 @@
 -->
 <header [ngClass]="{'medium-movies': medium === 'Movies', 'medium-series': medium === 'Series'}">
     <h2>{{medium}}</h2>
-    <!-- <div *ngIf="mediaItems">{{ mediaItems | categoryList }}</div> -->
-    <!-- DOES NOT CURRENTLY WORK - ERROR Received by Console: "Type 'string' is not assignable to type 'string[]" -->
+    <div *ngIf="mediaItems">{{ mediaItems | categoryList }}</div>
+    <!-- DOES NOT CURRENTLY WORK - ERROR Received by Console: "Type 'string' is not assignable to type 'string[]'" -->
     <!-- <mw-category-list *ngIf="mediaItems" [categories]="mediaItems | categoryList"></mw-category-list> -->
 </header>
 <section>
