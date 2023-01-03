@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { map, catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
 
 @Injectable({
     providedIn: "root"
 })
 export class MediaItemService {
-    mediaItems = [
+    /*
+    mediaItems: Array<any> = [
         {
             id: 1,
             name: 'Firebug',
@@ -50,27 +52,47 @@ export class MediaItemService {
             isFavorite: false
         }
     ];
+    */
 
     constructor(private http: HttpClient) { }
 
-    get(medium: any) {
+    get(medium: string) {
         const getOptions = {
             params: { medium }
         };
-        return this.http.get<MediaItemResponse>("mediaitems", getOptions).pipe(map(response => { return response.mediaItems; }));
+        return this.http.get<MediaItemResponse>("mediaItems", getOptions)
+            .pipe(
+                map((response: MediaItemResponse) => { 
+                    return response.mediaItems; 
+                }),
+                catchError(this.handleError)
+            );
         //return this.http.get<MediaItemResponse>("mediaitems").pipe(map(response => { return response.mediaItems; }));
         //return this.mediaItems;
     }
 
     add(newMediaItem: MediaItem) {
-        this.mediaItems.push(newMediaItem);
+        //this.mediaItems.push(newMediaItem);
+        //return this.http.post('mediaitems', newMediaItem);
+        return this.http.post('mediaitems', newMediaItem)
+            .pipe(catchError(this.handleError));
     }
 
     remove(mediaItem: MediaItem) {
+        /*
         const index = this.mediaItems.indexOf(mediaItem);
         if(index >= 0) {
             this.mediaItems.splice(index, 1);
         }
+        */
+        //return this.http.delete(`mediaitems/${mediaItem.id}`)
+        return this.http.delete(`mediaitems/${mediaItem.id}`)
+            .pipe(catchError(this.handleError));
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        console.log(error.message);
+        return throwError("A date error occurred. Please try again!");
     }
 }
 
@@ -79,11 +101,11 @@ export interface MediaItem {
     name: string;
     medium: string;
     category: string;
-    year: number;
-    watchedOn: number;
+    year: number | null;
+    watchedOn: number | null;
     isFavorite: boolean
 }
 
-export interface MediaItemResponse {
+interface MediaItemResponse {
     mediaItems: MediaItem[]
 }
